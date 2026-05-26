@@ -5,6 +5,7 @@ import { splitClient } from "@/lib/stellar";
 import { getFreighterPublicKey } from "@/lib/freighter";
 import { formatAmount, parseAmount } from "@stellar-split/sdk";
 import PaymentProgress from "@/components/PaymentProgress";
+import { SkeletonProgress, SkeletonRow } from "@/components/Skeleton";
 import type { Invoice } from "@stellar-split/sdk";
 
 interface Props {
@@ -67,8 +68,13 @@ export default function InvoiceDetailPage({ params }: Props) {
 
   if (!invoice) {
     return (
-      <main className="max-w-xl mx-auto px-6 py-20 text-center">
-        <p className="text-gray-400">Loading invoice…</p>
+      <main className="max-w-xl mx-auto px-6 py-16">
+        <div className="h-8 w-48 animate-pulse bg-gray-700 rounded mb-6" />
+        <SkeletonProgress />
+        <div className="mt-8 flex flex-col gap-2">
+          <SkeletonRow />
+          <SkeletonRow />
+        </div>
       </main>
     );
   }
@@ -88,6 +94,13 @@ export default function InvoiceDetailPage({ params }: Props) {
         >
           {invoice.status}
         </span>
+        <button
+          type="button"
+          onClick={() => window.print()}
+          className="ml-auto px-3 py-1.5 rounded-lg bg-gray-700 hover:bg-gray-600 text-sm transition-colors print:hidden"
+        >
+          Print Invoice
+        </button>
       </div>
 
       {/* Progress */}
