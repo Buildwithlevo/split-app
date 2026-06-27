@@ -4,29 +4,26 @@ import Link from "next/link";
 import WalletConnect from "@/components/WalletConnect";
 import { useI18n } from "@/components/I18nProvider";
 
-/**
- * Landing page — explains StellarSplit and provides a CTA to get started.
- */
+const FEATURES = [
+  {
+    icon: "🔗",
+    titleKey: "home.features.onChain.title",
+    bodyKey:  "home.features.onChain.description",
+  },
+  {
+    icon: "⚡",
+    titleKey: "home.features.autoRelease.title",
+    bodyKey:  "home.features.autoRelease.description",
+  },
+  {
+    icon: "🔄",
+    titleKey: "home.features.autoRefund.title",
+    bodyKey:  "home.features.autoRefund.description",
+  },
+];
+
 export default function HomePage() {
   const { t } = useI18n();
-
-  const features = [
-    {
-      icon: "🔗",
-      title: t("home.features.onChain.title"),
-      body: t("home.features.onChain.description"),
-    },
-    {
-      icon: "⚡",
-      title: t("home.features.autoRelease.title"),
-      body: t("home.features.autoRelease.description"),
-    },
-    {
-      icon: "🔄",
-      title: t("home.features.autoRefund.title"),
-      body: t("home.features.autoRefund.description"),
-    },
-  ];
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen w-full max-w-full px-4 sm:px-6 py-20 text-center overflow-x-hidden">
@@ -44,19 +41,35 @@ export default function HomePage() {
         {t("home.description")}
       </p>
 
-      {/* CTA */}
-      <div className="flex flex-col sm:flex-row gap-4 mb-20">
-        <WalletConnect />
-        <Link
-          href="/invoice/new"
-          className="min-h-11 inline-flex items-center justify-center px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-400"
-        >
-          {t("home.createInvoice")}
-        </Link>
-      </div>
+          {/* Sub-headline */}
+          <p className="text-body-lg text-slate-400 max-w-xl mb-10">
+            {t("home.description")}
+          </p>
 
-      {/* Feature grid */}
-      <section aria-labelledby="features-heading">
+          {/* CTA row */}
+          <div className="flex flex-col sm:flex-row items-center gap-3 mb-10">
+            <WalletConnect />
+            <Link
+              href="/invoice/new"
+              className="inline-flex items-center justify-center gap-2 h-11 px-6 rounded-xl bg-brand-600 hover:bg-brand-500 active:bg-brand-700 text-white font-semibold transition-colors shadow-glow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
+            >
+              <span aria-hidden="true">+</span>
+              {t("home.createInvoice")}
+            </Link>
+          </div>
+
+          {/* Social proof */}
+          <p className="text-xs text-slate-500">
+            {t("home.useCases")}
+          </p>
+        </div>
+      </section>
+
+      {/* ── Feature grid ──────────────────────────────────────────── */}
+      <section
+        aria-labelledby="features-heading"
+        className="relative px-4 sm:px-6 pb-24"
+      >
         <h2 id="features-heading" className="sr-only">Features</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-3xl w-full text-left">
           {features.map((f) => (

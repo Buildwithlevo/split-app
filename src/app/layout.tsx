@@ -3,17 +3,18 @@ import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { AccessibilityProvider } from "@/contexts/AccessibilityContext";
-import ThemeToggle from "@/components/ThemeToggle";
-import NotificationCenter from "@/components/NotificationCenter";
+import Navbar from "@/components/Navbar";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import OnboardingFlow from "@/components/OnboardingFlow";
 import UpgradeBanner from "@/components/UpgradeBanner";
 import { I18nProvider } from "@/components/I18nProvider";
-import SimulationModeToggle from "@/components/SimulationModeToggle";
 import SimulationBanner from "@/components/SimulationBanner";
 import RecipientOnboarding from "@/components/RecipientOnboarding";
 import HeaderShortcutsButton from "@/components/HeaderShortcutsButton";
+import CommandPalette from "@/components/CommandPalette";
 import { SessionLockProvider } from "@/contexts/SessionLockContext";
+import CommandPalette from "@/components/CommandPalette";
+import { ToastProvider } from "@/contexts/ToastContext";
 
 const themeBootstrap = `
 (function () {
@@ -128,12 +129,14 @@ export default function RootLayout({
               <NotificationCenter />
             </header>
             <SessionLockProvider>
+            <ToastProvider>
             <SimulationBanner />
             <UpgradeBanner />
             <ErrorBoundary>{children}</ErrorBoundary>
             <CommandPalette />
             <OnboardingFlow />
             <RecipientOnboarding />
+            </ToastProvider>
             </SessionLockProvider>
             <Script id="register-sw" strategy="afterInteractive">
               {`if ("serviceWorker" in navigator) {
